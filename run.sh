@@ -1,0 +1,2 @@
+./gather.sh
+./process.sh
