@@ -1,0 +1,5 @@
+{
+    "python.envFile": ".env",
+    "python.languageServer": "Jedi",
+    "python.jediEnabled": true
+}
