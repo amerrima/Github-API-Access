@@ -9,7 +9,7 @@ print("Demonstration python based github api access");
 from github import Github   # github api access
 import json                 # for converting a dictionary to a string
 import pymongo              # for mongodb access
-import os
+
 
 # Load the faker and its providers
 from faker import Faker     # for anonymising names
@@ -29,8 +29,10 @@ names  = defaultdict(faker.name)
 #we initialise a PyGithub Github object with our access token.
 #     note that this token is ours, and now deleted. You must 
 #     crete your own access token and use here instead. 
-tk = os.getenv('GITHUB_PAT')
-g = Github(tk)
+# 
+with open('/Users/Ailbhe/Documents/PersonalAccessToken.txt') as f:
+    key = f.readline()
+g = Github(key)
 
 #Let's get the user object and build a data dictionary
 usr = g.get_user()
@@ -70,11 +72,11 @@ db.githubuser.insert_many([dct])
 
 # now for demo purposes we'll get some data. We'll get the accounts followers
 # and for each of them we'll get and add a count of the number of repos they have
-fc = usr.followers
-print ("followers: " + str(fc))
+fc = usr.following
+print ("following: " + str(fc))
 
 # now lets get those followers
-fl = usr.get_followers()
+fl = usr.get_following()
 
 for f in fl:
     dct = {'user':         names[f.login].replace(" ",""), # anonymising
@@ -87,4 +89,5 @@ for f in fl:
         if v is None:
             del dct[k]
         
-    print("follower: " + json.dumps(dct))
+    print("following: " + json.dumps(dct))
+    db.githubuser.insert_many([dct])    
