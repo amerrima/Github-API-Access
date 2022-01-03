@@ -3,7 +3,7 @@
 # step 4 - Let's store our data in a mongodb
 # remember to pip install pymongo
 
-print("Demonstration python based github api access");
+print("Data");
 
 
 from github import Github   # github api access
@@ -41,8 +41,9 @@ dct = {'user':         names[usr.login].replace(" ", ""), # anonymising
        'fullname':     names[usr.name],  # anonymising
        'location':     usr.location,
        'company':      usr.company,
-       'public_repos': usr.public_repos
-       }
+       'public_repos': usr.public_repos,
+       'followers':    usr.followers
+              }
 
 print ("dictionary is " + json.dumps(dct))
 
@@ -75,7 +76,7 @@ db.githubuser.insert_many([dct])
 fc = usr.following
 print ("following: " + str(fc))
 
-# now lets get those followers
+# now lets get those followings
 fl = usr.get_following()
 
 for f in fl:
@@ -83,8 +84,9 @@ for f in fl:
            'fullname':     names[f.name], # anonymising
            'location':     f.location,
            'company':      f.company,
-           'public_repos': f.public_repos
-           }
+           'public_repos': f.public_repos,
+           'followers':    f.followers
+                      }
     for k, v in dict(dct).items():
         if v is None:
             del dct[k]
