@@ -1,7 +1,5 @@
 
 # a script to do python based access to the github api
-# step 4 - Let's store our data in a mongodb
-# remember to pip install pymongo
 
 print("Data");
 
@@ -20,15 +18,10 @@ names  = defaultdict(faker.name)
 
 
 
-#to shuffle move ascii value of every char
-# ef shift_ascii(name_string):
-#     newname_list =  [chr(ord(name_string[i])+2) for i in range(len(name_string))]
-#     newname_string = ''.join(newname_list)
-#     return  newname_string
+
 
 #we initialise a PyGithub Github object with our access token.
-#     note that this token is ours, and now deleted. You must 
-#     crete your own access token and use here instead. 
+#      
 # 
 with open('/Users/Ailbhe/Documents/PersonalAccessToken.txt') as f:
     key = f.readline()
@@ -47,12 +40,6 @@ dct = {'user':         names[usr.login].replace(" ", ""), # anonymising
 
 print ("dictionary is " + json.dumps(dct))
 
-# now let's store the dictionary in a mongodb
-
-# first we need to remove null fields from the dictionary, because
-# if we don't we'll end up with null fields in the db. This will cause us
-# lots of debugging problems later. The convention is only store actual data
-# in the database.
 
 for k, v in dict(dct).items():
     if v is None:
@@ -66,13 +53,12 @@ print ("cleaned dictionary is " + json.dumps(dct))
 conn = "mongodb://localhost:27017"
 client = pymongo.MongoClient(conn)
 
-# Create a database
+# Creating a database
 db = client.classDB
 
 db.githubuser.insert_many([dct])
 
-# now for demo purposes we'll get some data. We'll get the accounts followers
-# and for each of them we'll get and add a count of the number of repos they have
+
 fc = usr.following
 print ("following: " + str(fc))
 
