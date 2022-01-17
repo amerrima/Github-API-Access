@@ -1,7 +1,7 @@
-# Github-API-Access
-Code for final project of CSU33012 - Software Engineering
+# Github-API-Access and Data Visualisation
+Code for final project of CSU33012 - Software Engineering which compares your followers follower count and their piblic repos on a bar chart, using a button
 To run code :
-1) Valid github user token is required. My personal access token is used to run this project and is read from the "PersonalAccessToken.txt" file in this repo.
+1) Valid github user token is required. My personal access token is used to run this project and is read from the "PersonalAccessToken.txt" file in this repo to reate your own visualizations you must generate your own personal token.
 2) Make sure python and pip are installed.
 3) To run the database run the command 'docker-compose up' in Windows PowerShell
 4) Then run 'python cleardb.py'
